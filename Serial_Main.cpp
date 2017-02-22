@@ -1,32 +1,22 @@
 #include <iostream>
 #include <sstream>
-#include <mpi.h>
 #include <stdlib.h>
 #include "Print.h"
 #include "Dot.h"
 
 int main(int argc, char** argv)
 {
-    // Get MPI information
-    int myrank, nprocs;
-    MPI_Init(&argc, &argv);
-    MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
-    MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
 
-    // Make strings of the MPI information
-    std::ostringstream strrank, strnprocs;
-    strrank << myrank;
-    strnprocs << nprocs;
 
     // Print a message specifying MPI information
-    std::string message = "Hello from process " + strrank.str() + " of " + strnprocs.str() + "\n";
+    std::string message = "Hello from process 0 of 1\n";
     Print::Print(message);
 
     // Get the size of the vector
     int n = 100;
     if (argc > 1)
       n = atoi(argv[1]);
-    int localn = n*(myrank+1)/nprocs - n*myrank/nprocs;
+    int localn = n;
 
     double *vector1 = new double[100];
     double *vector2 = new double[100];
@@ -40,15 +30,12 @@ int main(int argc, char** argv)
 
     // Take the dot product
     double dot = Dot::Dot(vector1, vector2, localn);
-    MPI_Allreduce(MPI_IN_PLACE, &dot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
 
     // Print the result
     std::ostringstream strdot;
     strdot << dot;
     message = "The inner product of the two vectors is: " + strdot.str() + "\n";
-    if (myrank == 0)
-        Print::Print(message);
+    Print::Print(message);
 
-    MPI_Finalize();
     return 0;
 }

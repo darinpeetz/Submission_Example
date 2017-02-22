@@ -19,4 +19,4 @@ mkdir ${JOBID}_$PBS_JOBNAME
 
 cd ${JOBID}_$PBS_JOBNAME
 
-mpiexec ../program > output
+mpiexec ../Program > output
