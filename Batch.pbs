@@ -1,0 +1,22 @@
+#!/bin/bash
+####################################################################
+#
+#PBS -l walltime=00:01:00
+#PBS -l nodes=1:ppn=12
+#PBS -N Test_Script
+#PBS -q test
+#PBS -j oe
+###PBS -W depend=afterany:NUMBER
+###PBS -o Test.o
+###PBS -e Test.e
+###PBS -m b
+####################################################################
+
+cd $PBS_O_WORKDIR
+
+export JOBID=`echo $PBS_JOBID | cut -d"." -f1`
+mkdir ${JOBID}_$PBS_JOBNAME
+
+cd ${JOBID}_$PBS_JOBNAME
+
+mpiexec ../program > output

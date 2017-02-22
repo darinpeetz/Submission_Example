@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#PBS -l walltime=00:01:00
+#PBS -l nodes=1:ppn=12
+#PBS -l naccesspolicy=shared
+#PBS -N Varying
+#PBS -q test
+#PBS -j oe
+###PBS -o matlabjob.out                                                            
+###PBS -e matlabjob.err
+#PBS -m abe 
+###PBS -W depend=afterany:1225917
+
+
+# Change to the directory from which the batch job was submitted
+cd $PBS_O_WORKDIR
+
+# Assigned the numeric portion of the pbs jobid to a varaible
+export JOBID=`echo $PBS_JOBID | cut -d"." -f1`
+
+# Clear the value set in the DISPLAY environment variable
+# to run the CLI version of MATLAB
+unset DISPLAY
+
+# Load MATLAB module (Enable MATLAB in user environment)
+module load matlab/8.5
+
+# Run matlab code and redirect output into a file whose
+# name include the numeric portion of the pbs jobid.
+for i in {0..11}
+do
+    matlab -nodisplay -r "num = $i; mat_script" &
+done
