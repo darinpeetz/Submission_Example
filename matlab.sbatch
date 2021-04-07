@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #SBATCH --time=00:01:00
 #SBATCH --ntasks=1

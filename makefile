@@ -7,7 +7,7 @@ endif
 COMPILE = -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas ${OPT_FLAG}
 LINK  =   -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas ${OPT_FLAG}
 PAR   =   mpicxx
-SER   =   g++
+SER   =   CC
 
 all: Program Serial_Program
 	@echo The executable file \'Program\' has been made
@@ -25,10 +25,10 @@ Serial_Main.o: Serial_Main.cpp Print.h
 	${SER} ${COMPILE} Serial_Main.cpp -c -o Serial_Main.o
 
 Print.o: Print.cpp Print.h
-	${PAR} ${COMPILE} Print.cpp -c -o Print.o
+	${SER} ${COMPILE} Print.cpp -c -o Print.o
 
 Dot.o: Dot.cpp Dot.h
-	${PAR} ${COMPILE} Dot.cpp -c -o Dot.o
+	${SER} ${COMPILE} Dot.cpp -c -o Dot.o
 
 clean:
 	$(RM) *.o Program

@@ -1,12 +1,12 @@
-#!/bin/bash
-
+#!/bin/sh
 
 #SBATCH --time=00:01:00
 #SBATCH --ntasks=12
 #SBATCH --job-name=Parallel_Script
 
-mkdir $SLURM_JOBID_$SLURM_JOBNAME
+mkdir ${SLURM_JOBID}_${SLURM_JOB_NAME}
+gmake clean
+gmake Program
+cd ${SLURM_JOBID}_${SLURM_JOB_NAME}
 
-cd $SLURM_JOBID_$SLURM_JOBNAME
-
-mpiexec ../program > output
+mpiexec ../Program > output
