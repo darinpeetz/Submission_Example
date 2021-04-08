@@ -4,10 +4,16 @@ else
     OPT_FLAG = -g0 -O3
 endif
 
+ifndef ${CC}
+	CC = icpc
+else
+	CC = CC
+endif
+
 COMPILE = -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas ${OPT_FLAG}
 LINK  =   -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas ${OPT_FLAG}
 PAR   =   mpicxx
-SER   =   CC
+SER   =   ${CC}
 
 all: Program Serial_Program
 	@echo The executable file \'Program\' has been made
