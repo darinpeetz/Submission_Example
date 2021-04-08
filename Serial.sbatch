@@ -4,9 +4,16 @@
 #SBATCH --ntasks=1
 #SBATCH --job-name=Serial_Script
 
-mkdir ${SLURM_JOBID}_${SLURM_JOB_NAME}
+# Load the intel compiler
+module load icc/20.4
+
+# Build the software
 gmake clean
 gmake Serial_Program
+
+# Create a directory specific to this job to work out of
+mkdir ${SLURM_JOBID}_${SLURM_JOB_NAME}
 cd ${SLURM_JOBID}_${SLURM_JOB_NAME}
-pwd
+
+# Run the program
 ../Serial_Program

@@ -18,8 +18,8 @@ int main(int argc, char** argv)
       n = atoi(argv[1]);
     int localn = n;
 
-    double *vector1 = new double[100];
-    double *vector2 = new double[100];
+    double *vector1 = new double[n];
+    double *vector2 = new double[n];
 
     // Assign random values to the vectors
     for (int i = 0; i < localn; i++)

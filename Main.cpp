@@ -26,10 +26,11 @@ int main(int argc, char** argv)
     int n = 100;
     if (argc > 1)
       n = atoi(argv[1]);
+    std::cout << n << "\n";
     int localn = n*(myrank+1)/nprocs - n*myrank/nprocs;
 
-    double *vector1 = new double[100];
-    double *vector2 = new double[100];
+    double *vector1 = new double[n];
+    double *vector2 = new double[n];
 
     // Assign random values to the vectors
     for (int i = 0; i < localn; i++)
@@ -39,13 +40,17 @@ int main(int argc, char** argv)
     }
 
     // Take the dot product
+    double tStart = MPI_Wtime();
     double dot = Dot::Dot(vector1, vector2, localn);
     MPI_Allreduce(MPI_IN_PLACE, &dot, 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+    double tEnd = MPI_Wtime();
 
     // Print the result
-    std::ostringstream strdot;
+    std::ostringstream strdot, strtime;
     strdot << dot;
-    message = "The inner product of the two vectors is: " + strdot.str() + "\n";
+    strtime << (tEnd - tStart);
+    message = "The inner product of the two vectors is: " + strdot.str() + "\n" + 
+              "and it took " + strtime.str() + " seconds to calculated it\n";
     if (myrank == 0)
         Print::Print(message);
 

@@ -37,7 +37,7 @@ Dot.o: Dot.cpp Dot.h
 	${SER} ${COMPILE} Dot.cpp -c -o Dot.o
 
 clean:
-	$(RM) *.o Program
+	$(RM) *.o Program Serial_Program
 
 tidy:
 	$(RM) *.o
