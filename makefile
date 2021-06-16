@@ -4,10 +4,10 @@ else
     OPT_FLAG = -g0 -O3
 endif
 
-ifndef ${CC}
-	CC = icpc
+ifeq (, $(shell which icpc))
+	CC = g++
 else
-	CC = CC
+	CC = icpc
 endif
 
 COMPILE = -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas ${OPT_FLAG}

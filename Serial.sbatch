@@ -4,9 +4,6 @@
 #SBATCH --ntasks=1
 #SBATCH --job-name=Serial_Script
 
-# Load the intel compiler
-module load icc/20.4
-
 # Build the software
 gmake clean
 gmake Serial_Program
