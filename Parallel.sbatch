@@ -5,8 +5,8 @@
 #SBATCH --job-name=Parallel_Script
 
 # Load the intel and MPI compilers
-module load icc/20.4
-module load openmpi/4.0.5
+#module load icc/20.4
+#module load openmpi/4.0.5
 
 # Build the software
 gmake clean

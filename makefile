@@ -5,7 +5,7 @@ else
 endif
 
 ifeq (, $(shell which icpc))
-	CC = g++
+	CC = CC
 else
 	CC = icpc
 endif
